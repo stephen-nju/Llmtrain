@@ -3,7 +3,7 @@ Usage() {
 	cat <<EOF
 Usage: train magiclm nano
 -m --model_name_or_path     base model name or path
--n  --name 				    runing experiment name 
+-n  --name 				    runing experiment name
 -h  --help                  display help
 -e  --epoch                 num train epochs
 -l  --lr					learning rate
@@ -14,7 +14,7 @@ EOF
 
 
 export NCCL_SOCKET_IFNAME=eth0
-export NCCL_IB_DISABLE=0  
+export NCCL_IB_DISABLE=0
 export NCCL_IB_TIMEOUT=22
 export NCCL_IB_GID_INDEX=3
 export NCCL_IB_TC=160

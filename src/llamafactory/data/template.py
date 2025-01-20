@@ -1323,6 +1323,5 @@ _register_template(
     format_assistant=StringFormatter(slots=["{{content}}"]),
     stop_words=["<|user|>", "<|observation|>"],
     efficient_eos=True,
-    replace_eos=True
+    replace_eos=True,
 )
-

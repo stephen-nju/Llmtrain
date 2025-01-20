@@ -2,7 +2,7 @@ Usage() {
 	cat <<EOF
 Usage: train magiclm nano
 -m --model_name_or_path     base model name or path
--n  --name 				    runing experiment name 
+-n  --name 				    runing experiment name
 -h  --help                  display help
 -e  --epoch                 num train epochs
 -l  --lr					learning rate

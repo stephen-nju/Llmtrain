@@ -1,5 +1,5 @@
 export NCCL_SOCKET_IFNAME=eth0
-export NCCL_IB_DISABLE=0  
+export NCCL_IB_DISABLE=0
 export NCCL_IB_TIMEOUT=22
 export NCCL_IB_GID_INDEX=3
 export NCCL_IB_TC=160
@@ -70,4 +70,3 @@ deepspeed --hostfile=${HOSTFILE} --include="node7" --master_port=${MASTER_PORT} 
 	--learning_rate 1e-5 \
 	--bf16 true \
 2>&1  | tee ${OUTPUT_DIR}/train.log
-

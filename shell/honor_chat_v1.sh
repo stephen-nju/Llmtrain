@@ -59,4 +59,3 @@ deepspeed --hostfile=${OUTPUT_DIR}/hostfile --include="node7:0,1,2,3,4,5,6,7" --
 	--save_total_limit 2 \
 	--learning_rate 6e-5 \
 	--bf16 true
-
