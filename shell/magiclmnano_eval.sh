@@ -4,7 +4,7 @@ Usage:eval dataset
 EOF
 }
 
-export PROJECT_PATH=/home/jovyan/zhubin/code/LLaMA-Factory/
+export PROJECT_PATH=/home/jovyan/zhubin/code/Llmtrain/
 cd ${PROJECT_PATH}
 export hoststr='node12 slots=8'
 export model_name_or_path=/home/jovyan/zhubin/DATA/models/honor2_5b_patched_tokenizer/
@@ -167,7 +167,7 @@ attrun \
 # 	--eval_dataset zhipu_dev \
 # 	--template honor \
 # 	--finetuning_type lora \
-# 	--output_dir /home/jovyan/zhubin/code/LLaMA-Factory/saved_output/lora_honor_zhipu \
+# 	--output_dir /home/jovyan/zhubin/code/Llmtrain/saved_output/lora_honor_zhipu \
 # 	--cutoff_len 4069 \
 # 	--max_new_tokens 512 \
 # 	--do_sample false \
@@ -188,7 +188,7 @@ attrun \
 # 	--eval_dataset test_department_data \
 # 	--template honor \
 # 	--finetuning_type lora \
-# 	--output_dir /home/jovyan/zhubin/code/LLaMA-Factory/saved_output/lora_honor_test_department \
+# 	--output_dir /home/jovyan/zhubin/code/Llmtrain/saved_output/lora_honor_test_department \
 # 	--cutoff_len 4069 \
 # 	--max_new_tokens 512 \
 # 	--do_sample false \
@@ -230,7 +230,7 @@ attrun \
 # 	--eval_dataset zhipu_dev \
 # 	--template honor \
 # 	--finetuning_type lora \
-# 	--output_dir /home/jovyan/zhubin/code/LLaMA-Factory/saved_output/loraplus_honor \
+# 	--output_dir /home/jovyan/zhubin/code/Llmtrain/saved_output/loraplus_honor \
 # 	--cutoff_len 4069 \
 # 	--max_new_tokens 512 \
 # 	--do_sample false \
@@ -250,7 +250,7 @@ attrun \
 # 	--eval_dataset wuzhiqiang \
 # 	--template qwen \
 # 	--finetuning_type full \
-# 	--output_dir /home/jovyan/zhubin/code/LLaMA-Factory/saved_output/wuzhiqiang_qwen14b \
+# 	--output_dir /home/jovyan/zhubin/code/Llmtrain/saved_output/wuzhiqiang_qwen14b \
 # 	--cutoff_len 4069 \
 # 	--max_new_tokens 512 \
 # 	--do_sample false \
@@ -270,7 +270,7 @@ attrun \
 # 	--eval_dataset wuzhiqiang \
 # 	--template qwen \
 # 	--finetuning_type full \
-# 	--output_dir /home/jovyan/zhubin/code/LLaMA-Factory/saved_output/wuzhiqiang \
+# 	--output_dir /home/jovyan/zhubin/code/Llmtrain/saved_output/wuzhiqiang \
 # 	--cutoff_len 4069 \
 # 	--max_new_tokens 512 \
 # 	--do_sample false \
@@ -290,7 +290,7 @@ attrun \
 # 	--eval_dataset wuzhiqiang \
 # 	--template honor \
 # 	--finetuning_type full \
-# 	--output_dir /home/jovyan/zhubin/code/LLaMA-Factory/saved_output/magiclm-3b-instruct \
+# 	--output_dir /home/jovyan/zhubin/code/Llmtrain/saved_output/magiclm-3b-instruct \
 # 	--cutoff_len 4069 \
 # 	--max_new_tokens 512 \
 # 	--do_sample false \

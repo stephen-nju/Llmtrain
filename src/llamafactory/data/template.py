@@ -1309,3 +1309,20 @@ _register_template(
     format_user=StringFormatter(slots=["<human>:{{content}}\n<bot>:"]),
     format_assistant=StringFormatter(slots=["{{content}}\n"]),
 )
+
+_register_template(
+    name="honor",
+    format_prefix=EmptyFormatter(slots=[{"bos_token"}]),
+    format_user=StringFormatter(slots=["<TOKENS_UNUSED_1>{{content}}<TOKENS_UNUSED_2>"]),
+    format_assistant=StringFormatter(slots=["{{content}}", {"eos_token"}]),
+)
+
+_register_template(
+    name="glm-edge",
+    format_user=StringFormatter(slots=["<|user|>\n{{content}}<|assistant|>"]),
+    format_assistant=StringFormatter(slots=["{{content}}"]),
+    stop_words=["<|user|>", "<|observation|>"],
+    efficient_eos=True,
+    replace_eos=True
+)
+

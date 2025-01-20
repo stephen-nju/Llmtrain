@@ -241,6 +241,7 @@ deepspeed --hostfile=${HOSTFILE} --master_port=${MASTER_PORT} "${deepspeed_param
 	src/train.py \
 	--deepspeed ${DS_CONFIG_STAGE_3} \
 	--stage ${stage} \
+	--run_name $name \
 	--pref_beta ${pref_beta} \
 	--pref_loss ${pref_loss} \
 	--simpo_gamma ${simpo_gamma} \

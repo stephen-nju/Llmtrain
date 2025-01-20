@@ -239,8 +239,7 @@
 # ./llmtrain.sh --do_train --stage sft --name=0103_Qwen2.5_14B_neft_acfvcaulsd_markdown_ep2_lr5e5_bs2 --model_name_or_path /opt/nas/p/zhubin/DATA/models/Qwen/Qwen2.5-14B --template qwen \
 # 	--dataset alpace_gpt4_zh_retain,COIG_PC_core_summary_part,firefly_summary_part,vcsum_headlines,csds_dialogue,union_conversations_v4_norm_markdown,liantong_conversations_v1_markdown,samsum_chinese_markdown,dialogsum_chinese_markdown \
 # 	--finetuning_type full --batch_size 2 --gradient_accumulation_steps 16 --cutoff_len 4096 --epochs 2 --lr=5e-5 --save_strategy=steps --save_steps=500 --save_total_limit=100 \
-# 	--eval_dataset=union_conversations_v5_dev_markdown --neftune_noise_alpha=5 --eval_strategy=steps --eval_steps=500 --warmup_ratio=0.02 
-
+# 	--eval_dataset=union_conversations_v5_dev_markdown --neftune_noise_alpha=5 --eval_strategy=steps --eval_steps=500 --warmup_ratio=0.02
 
 # ./magiclmnano_ppo.sh --do_train --stage ppo --finetuning_type lora \
 # 	--adapter_name_or_path /home/jovyan/zhubin/saved_checkpoint/1219_magiclm_nano_neft_cusl_loraplus16_ep3_lr1e4_bs4/ \
@@ -266,15 +265,19 @@
 # 	--gradient_accumulation_steps=4 --cutoff_len=4096 --epochs=2 --lr=1e-4 --save_strategy=epoch --warmup_ratio 0.02 --save_total_limit=3 --eval_dataset \
 # 	union_conversations_v5_dev_markdown --eval_strategy=steps --eval_steps=300
 
+# ./llmtrain.sh --do_train --stage sft --name=0111_Qwen2.5_14B_neft_acfvculddu_markdown_ep3_lr4e5_bs1 --model_name_or_path /opt/nas/p/zhubin/DATA/models/Qwen/Qwen2.5-14B --template qwen \
+# 	--dataset alpace_gpt4_zh_retain,COIG_PC_core_summary_part,firefly_summary_part,vcsum_headlines,csds_dialogue,union_conversations_v4_norm_markdown,liantong_conversations_v1_markdown,dialogsum_chinese_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
+# 	--finetuning_type full --batch_size 1 --gradient_accumulation_steps 16 --cutoff_len 4096 --epochs 3 --lr=4e-5 --save_strategy=epoch --save_total_limit=100 \
+# 	--eval_dataset=union_conversations_v5_dev_markdown --neftune_noise_alpha=5 --eval_strategy=steps --eval_steps=500 --warmup_ratio=0.03
 
+# wait
+# ./llmtrain.sh --do_train --stage sft --name=0111_Qwen2.5_14B_neft_acfvculddu_markdown_ep3_lr2e5_bs1 --model_name_or_path /opt/nas/p/zhubin/DATA/models/Qwen/Qwen2.5-14B --template qwen \
+# 	--dataset alpace_gpt4_zh_retain,COIG_PC_core_summary_part,firefly_summary_part,vcsum_headlines,csds_dialogue,union_conversations_v4_norm_markdown,liantong_conversations_v1_markdown,dialogsum_chinese_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
+# 	--finetuning_type full --batch_size 1 --gradient_accumulation_steps 16 --cutoff_len 4096 --epochs 3 --lr=2e-5 --save_strategy=epoch --save_total_limit=100 \
+# 	--eval_dataset=union_conversations_v5_dev_markdown --neftune_noise_alpha=5 --eval_strategy=steps --eval_steps=500 --warmup_ratio=0.03
 
-./llmtrain.sh --do_train --stage sft --name=0111_Qwen2.5_14B_neft_acfvculddu_markdown_ep3_lr4e5_bs1 --model_name_or_path /opt/nas/p/zhubin/DATA/models/Qwen/Qwen2.5-14B --template qwen \
-	--dataset alpace_gpt4_zh_retain,COIG_PC_core_summary_part,firefly_summary_part,vcsum_headlines,csds_dialogue,union_conversations_v4_norm_markdown,liantong_conversations_v1_markdown,dialogsum_chinese_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
-	--finetuning_type full --batch_size 1 --gradient_accumulation_steps 16 --cutoff_len 4096 --epochs 3 --lr=4e-5 --save_strategy=epoch --save_total_limit=100 \
-	--eval_dataset=union_conversations_v5_dev_markdown --neftune_noise_alpha=5 --eval_strategy=steps --eval_steps=500 --warmup_ratio=0.03
-
-wait
-./llmtrain.sh --do_train --stage sft --name=0111_Qwen2.5_14B_neft_acfvculddu_markdown_ep3_lr2e5_bs1 --model_name_or_path /opt/nas/p/zhubin/DATA/models/Qwen/Qwen2.5-14B --template qwen \
-	--dataset alpace_gpt4_zh_retain,COIG_PC_core_summary_part,firefly_summary_part,vcsum_headlines,csds_dialogue,union_conversations_v4_norm_markdown,liantong_conversations_v1_markdown,dialogsum_chinese_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
-	--finetuning_type full --batch_size 1 --gradient_accumulation_steps 16 --cutoff_len 4096 --epochs 3 --lr=2e-5 --save_strategy=epoch --save_total_limit=100 \
-	--eval_dataset=union_conversations_v5_dev_markdown --neftune_noise_alpha=5 --eval_strategy=steps --eval_steps=500 --warmup_ratio=0.03 
+./magiclmnano_sft.sh --do_train --do_eval --stage sft --finetuning_type lora --lora_rank 32 --lora_alpha 1 --lora_target wqkv,w1,w2,w3 --loraplus_lr_ratio 16 \
+	--name=20150117_magiclmnano_acfvculdu_loraplus16_ep3_lr1e4_bs4 \
+	--dataset alpace_gpt4_zh_retain,COIG_PC_core_summary_part,firefly_summary_part,vcsum_headlines,csds_dialogue,union_conversations_v5_norm_markdown,liantong_conversations_v1_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
+	--gradient_accumulation_steps=4 --cutoff_len=4096 --epochs=3 --lr=1e-4 --save_strategy=epoch --warmup_ratio 0.03 --save_total_limit=3 \
+	--eval_dataset union_conversations_v5_dev --eval_strategy=steps --eval_steps=300

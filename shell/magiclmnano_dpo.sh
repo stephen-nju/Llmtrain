@@ -13,7 +13,7 @@ export NCCL_NET_GDR_LEVEL=2
 export NCCL_IB_HCA=mlx5_bond_0,mlx5_bond_1,mlx5_bond_2,mlx5_bond_3,mlx5_bond_4,mlx5_bond_5,mlx5_bond_6,mlx5_bond_7
 export NCCL_ALGO=Ring
 
-export PROJECT_PATH=/home/jovyan/zhubin/code/LLaMA-Factory/
+export PROJECT_PATH=/home/jovyan/zhubin/code/Llmtrain/
 export PYTHONPATH=/home/jovyan/zhubin/DATA/models/honor_2_5b_patched_tokenizer:$PYTHONPATH
 cd ${PROJECT_PATH}
 export PYTHONPATH=${PROJECT_PATH}
@@ -243,7 +243,7 @@ fi
 
 export OUTPUT_DIR=/home/jovyan/zhubin/saved_checkpoint/$name
 export WANDB_DIR=$OUTPUT_DIR/logs
-export HOSTFILE=/home/jovyan/zhubin/code/LLaMA-Factory/config/hostfile
+export HOSTFILE=/home/jovyan/zhubin/code/Llmtrain/config/hostfile
 mkdir -p ${OUTPUT_DIR}
 mkdir -p ${WANDB_DIR}
 
@@ -254,6 +254,7 @@ deepspeed --hostfile=${HOSTFILE} --include=${include} --master_port=${MASTER_POR
 	src/train.py \
 	--deepspeed ${DS_CONFIG_STAGE_2} \
 	--stage ${stage} \
+	--run_name ${name} \
 	--pref_beta ${pref_beta} \
 	--pref_loss ${pref_loss} \
 	--simpo_gamma ${simpo_gamma} \
