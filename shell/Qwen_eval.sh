@@ -84,7 +84,7 @@ attrun \
 	--template ${template} \
 	--finetuning_type ${finetuning_type} \
 	--output_dir ${output_dir} \
-	--cutoff_len 4069 \
+	--cutoff_len 4096 \
 	--max_new_tokens 512 \
 	--do_sample false \
 	--per_device_eval_batch_size 2 \
@@ -106,7 +106,7 @@ attrun \
 	--template ${template} \
 	--finetuning_type ${finetuning_type} \
 	--output_dir ${output_dir} \
-	--cutoff_len 4069 \
+	--cutoff_len 4096 \
 	--max_new_tokens 512 \
 	--do_sample false \
 	--per_device_eval_batch_size 2 \
