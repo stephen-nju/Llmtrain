@@ -242,10 +242,51 @@
 
 # ./Qwen_eval.sh --hoststr "nlp-nlp-dialogue-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0111_Qwen2.5_14B_neft_acfvculddu_markdown_ep3_lr2e5_bs1/checkpoint-1146/ \
 # 	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type full
+# ./Qwen_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" --model_name_or_path /opt/nas/p/models/Qwen_models/Qwen2.5-1.5B/ \
+# 	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/20150121_qwen2.5_1.5B_acfvculdu_loraplus16_ep3_lr2e4_bs4/checkpoint-1054/ \
+# 	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora
 
-# ./Qwen_eval.sh --hoststr "nlp-nlp-dialogue-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0111_Qwen2.5_14B_neft_acfvculddu_markdown_ep3_lr2e5_bs1/checkpoint-2292/ \
-# 	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type full
-# ./Qwen_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0111_Qwen2.5_14B_neft_acfvculddu_markdown_ep3_lr2e5_bs1/checkpoint-1146/ \
-# 	--eval_dataset diting_v1_dev --output_name diting_v1_dev --finetuning_type full
-./Qwen_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0111_Qwen2.5_14B_neft_acfvculddu_markdown_ep3_lr2e5_bs1/checkpoint-1146/ \
-	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type full
+# ./Qwen_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" --model_name_or_path /opt/nas/p/models/Qwen_models/Qwen2.5-1.5B/ \
+# 	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/20150121_qwen2.5_1.5B_acfvculdu_loraplus16_ep3_lr2e4_bs4/checkpoint-2109/ \
+# 	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora
+
+# ./Qwen_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" --model_name_or_path /opt/nas/p/models/Qwen_models/Qwen2.5-1.5B/ \
+# 	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/20150121_qwen2.5_1.5B_acfvculdu_loraplus16_ep3_lr2e4_bs4/checkpoint-3162/ \
+# 	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora
+
+# ./Qwen_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/DATA/models/Qwen/Qwen2.5-3B/ \
+# 	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/20150121_qwen2.5_3B_acfvculdu_loraplus16_ep3_lr2e4_bs4/checkpoint-1054/ \
+# 	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora
+
+# ./Qwen_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/DATA/models/Qwen/Qwen2.5-3B/ \
+# 	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/20150121_qwen2.5_3B_acfvculdu_loraplus16_ep3_lr2e4_bs4/checkpoint-2109/ \
+# 	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora
+
+# ./Qwen_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/DATA/models/Qwen/Qwen2.5-3B/ \
+# 	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/20150121_qwen2.5_3B_acfvculdu_loraplus16_ep3_lr2e4_bs4/checkpoint-3162/ \
+# 	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora
+# instruct model eval
+
+./Qwen_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" --model_name_or_path /opt/nas/n/zhubin/DATA/models/Qwen/Qwen2.5-1.5B-Instruct/ \
+	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0123_qwen2.5_1.5b_instr_auldu__loraplus16_ep3_lr2e4_bs4/checkpoint-198/ \
+	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora
+
+./Qwen_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" --model_name_or_path /opt/nas/n/zhubin/DATA/models/Qwen/Qwen2.5-1.5B-Instruct/ \
+	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0123_qwen2.5_1.5b_instr_auldu__loraplus16_ep3_lr2e4_bs4/checkpoint-396/ \
+	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora
+
+./Qwen_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" --model_name_or_path /opt/nas/n/zhubin/DATA/models/Qwen/Qwen2.5-1.5B-Instruct/ \
+	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0123_qwen2.5_1.5b_instr_auldu__loraplus16_ep3_lr2e4_bs4/checkpoint-594/ \
+	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora
+
+# ./magiclmnano_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" \
+# 	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/20250117_magiclmnano_acfvculdu_loraplus16_ep3_lr1e4_bs4/checkpoint-1054/ \
+# 	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora
+
+# ./magiclmnano_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" \
+# 	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/20250117_magiclmnano_acfvculdu_loraplus16_ep3_lr1e4_bs4/checkpoint-2109/ \
+# 	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora
+
+# ./magiclmnano_eval.sh --hoststr "nlp-nlp-sum-0 slots=8" \
+# 	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/20250117_magiclmnano_acfvculdu_loraplus16_ep3_lr1e4_bs4/checkpoint-3162/ \
+# 	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora

@@ -1,13 +1,15 @@
+#!/usr/bin/bash
+
 Usage() {
 	cat <<EOF
 Usage:eval dataset
 EOF
 }
 
-export PROJECT_PATH=/home/jovyan/zhubin/code/Llmtrain/
+export PROJECT_PATH=/opt/nas/p/zhubin/code/Llmtrain/
 cd ${PROJECT_PATH}
 export hoststr='node12 slots=8'
-export model_name_or_path=/home/jovyan/zhubin/DATA/models/honor2_5b_patched_tokenizer/
+export model_name_or_path=/opt/nas/p/models/MagicLM2Nano/
 export adapter_name_or_path
 export eval_dataset
 export finetuning_type=lora
@@ -60,9 +62,11 @@ while true; do
 	shift
 done
 
+optional_params=()
 # 处理python脚本中default等于None的选项
 if [[ -n $adapter_name_or_path ]]; then
 	output_dir=${adapter_name_or_path}/output
+	optional_params+=(--adapter_name_or_path $adapter_name_or_path)
 else
 	output_dir=${model_name_or_path}/output
 fi
@@ -74,8 +78,8 @@ attrun \
 	src/train.py \
 	--stage sft \
 	--model_name_or_path ${model_name_or_path} \
-	--adapter_name_or_path ${adapter_name_or_path} \
-	--resize_vocab true \
+	--trust_remote_code true \
+	--resize_vocab false \
 	--do_predict \
 	--eval_dataset ${eval_dataset} \
 	--template ${template} \
@@ -85,7 +89,8 @@ attrun \
 	--max_new_tokens 512 \
 	--do_sample false \
 	--per_device_eval_batch_size 4 \
-	--predict_with_generate
+	--predict_with_generate \
+	"${optional_params[@]}"
 
 attrun \
 	--hoststr="${hoststr}" \
@@ -94,8 +99,8 @@ attrun \
 	src/train.py \
 	--stage sft \
 	--model_name_or_path ${model_name_or_path} \
-	--adapter_name_or_path ${adapter_name_or_path} \
-	--resize_vocab true \
+	--trust_remote_code true \
+	--resize_vocab false \
 	--do_eval \
 	--eval_dataset ${eval_dataset} \
 	--template ${template} \
@@ -104,10 +109,10 @@ attrun \
 	--cutoff_len 4069 \
 	--max_new_tokens 512 \
 	--do_sample false \
-	--per_device_eval_batch_size 4
+	--per_device_eval_batch_size 4 \
+	"${optional_params[@]}"
 
 # checkpoints=("checkpoint-1094" "checkpoint-2188" "checkpoint-3282")
-
 # for checkpoint in "${checkpoints[@]}"; do
 # 	echo "checkpoint: $checkpoint"
 # 	attrun \

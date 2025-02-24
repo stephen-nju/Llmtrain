@@ -276,8 +276,68 @@
 # 	--finetuning_type full --batch_size 1 --gradient_accumulation_steps 16 --cutoff_len 4096 --epochs 3 --lr=2e-5 --save_strategy=epoch --save_total_limit=100 \
 # 	--eval_dataset=union_conversations_v5_dev_markdown --neftune_noise_alpha=5 --eval_strategy=steps --eval_steps=500 --warmup_ratio=0.03
 
-./magiclmnano_sft.sh --do_train --do_eval --stage sft --finetuning_type lora --lora_rank 32 --lora_alpha 1 --lora_target wqkv,w1,w2,w3 --loraplus_lr_ratio 16 \
-	--name=20150117_magiclmnano_acfvculdu_loraplus16_ep3_lr1e4_bs4 \
-	--dataset alpace_gpt4_zh_retain,COIG_PC_core_summary_part,firefly_summary_part,vcsum_headlines,csds_dialogue,union_conversations_v5_norm_markdown,liantong_conversations_v1_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
-	--gradient_accumulation_steps=4 --cutoff_len=4096 --epochs=3 --lr=1e-4 --save_strategy=epoch --warmup_ratio 0.03 --save_total_limit=3 \
-	--eval_dataset union_conversations_v5_dev --eval_strategy=steps --eval_steps=300
+# ./magiclmnano_sft.sh --do_train --do_eval --stage sft --finetuning_type lora --lora_rank 32 --lora_alpha 1 --lora_target wqkv,w1,w2,w3 --loraplus_lr_ratio 16 \
+# 	--name=0123_magiclmnano_auldu_loraplus16_ep3_lr1e4_bs4 \
+# 	--dataset alpace_gpt4_zh_retain,union_conversations_v5_norm_markdown,liantong_conversations_v1_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
+# 	--gradient_accumulation_steps=4 --cutoff_len=4096 --epochs=3 --lr=1e-4 --save_strategy=epoch --warmup_ratio 0.03 --save_total_limit=3 \
+# 	--eval_dataset union_conversations_v5_dev --eval_strategy=steps --eval_steps=300
+# wait
+
+# ./llmtrain.sh --do_train --do_eval --stage sft --finetuning_type lora --template qwen --lora_rank 32 --lora_target all --loraplus_lr_ratio 16 \
+# 	--model_name_or_path /opt/nas/p/models/Qwen_models/Qwen2.5-1.5B \
+# 	--name 0123_qwen2.5_1.5B_auldu_loraplus16_ep3_lr2e4_bs4 \
+# 	--dataset union_conversations_v5_norm_markdown,liantong_conversations_v1_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
+# 	--gradient_accumulation_steps=4 --cutoff_len=4096 --epochs=3 --lr=1e-4 --save_strategy=epoch --warmup_ratio 0.1 --save_total_limit=10 \
+# 	--eval_dataset union_conversations_v5_dev --eval_strategy=steps --eval_steps=500
+
+# ./llmtrain.sh --do_train --do_eval --stage sft --finetuning_type lora --template qwen --lora_rank 32 --lora_target all --loraplus_lr_ratio 16 \
+# 	--model_name_or_path /opt/nas/p/models/qwen_models/qwen2.5-1.5b \
+# 	--name 0123_qwen2.5_1.5b_auldu_rvt_loraplus16_ep3_lr2e4_bs4 \
+# 	--dataset union_conversations_v5_norm_markdown,liantong_conversations_v1_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
+# 	--gradient_accumulation_steps=4 --resize_vocab true --cutoff_len=4096 --epochs=3 --lr=1e-4 --save_strategy=epoch --warmup_ratio 0.1 --save_total_limit=10 \
+# 	--eval_dataset union_conversations_v5_dev --eval_strategy=steps --eval_steps=500
+
+###instruct 模型lora训练
+# ./llmtrain.sh --do_train --do_eval --stage sft --finetuning_type lora --template qwen --lora_rank 32 --lora_target all --loraplus_lr_ratio 16 \
+# 	--model_name_or_path /opt/nas/n/zhubin/DATA/models/Qwen/Qwen2.5-1.5B-Instruct/ \
+# 	--name 0123_qwen2.5_1.5b_instr_auldu__loraplus16_ep3_lr2e4_bs4 \
+# 	--dataset union_conversations_v5_norm_markdown,liantong_conversations_v1_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
+# 	--gradient_accumulation_steps=4 --cutoff_len=4096 --epochs=3 --lr=1e-4 --save_strategy=epoch --warmup_ratio 0.1 --save_total_limit=10 \
+# 	--eval_dataset union_conversations_v5_dev --eval_strategy=steps --eval_steps=500
+
+# wait
+# ./llmtrain.sh --do_train --do_eval --stage sft --finetuning_type lora --template qwen --lora_rank 32 --lora_target all --loraplus_lr_ratio 16 \
+# 	--model_name_or_path /opt/nas/p/models/Qwen_models/Qwen2.5-3B/ \
+# 	--name 0123_qwen2.5_3B_auldu_loraplus16_ep3_lr2e4_bs4 \
+# 	--dataset union_conversations_v5_norm_markdown,liantong_conversations_v1_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
+# 	--gradient_accumulation_steps=4 --cutoff_len=4096 --epochs=3 --lr=1e-4 --save_strategy=epoch --warmup_ratio 0.1 --save_total_limit=10 \
+# 	--eval_dataset union_conversations_v5_dev_markdown --eval_strategy=steps --eval_steps=500
+
+###3B instruct 微调
+# ./llmtrain.sh --do_train --do_eval --stage sft --finetuning_type lora --template qwen --lora_rank 32 --lora_target all --loraplus_lr_ratio 16 \
+# 	--model_name_or_path \
+# 	--name 0123_qwen2.5_3B_auldu_loraplus16_ep3_lr2e4_bs4 \
+# 	--dataset union_conversations_v5_norm_markdown,liantong_conversations_v1_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
+# 	--gradient_accumulation_steps=4 --cutoff_len=4096 --epochs=3 --lr=1e-4 --save_strategy=epoch --warmup_ratio 0.1 --save_total_limit=10 \
+# 	--eval_dataset union_conversations_v5_dev_markdown --eval_strategy=steps --eval_steps=500
+
+# wait
+# ./llmtrain.sh --do_train --do_eval --stage sft --finetuning_type lora --template glm-edge --lora_rank 32 --lora_target all --loraplus_lr_ratio 16 \
+# 	--name=0123_glm4edge_auldu_loraplus16_ep3_lr5e4_bs4 \
+# 	--model_name_or_path /opt/nas/n/zhubin/DATA/models/THUDM/glm-edge-4b-chat/ \
+# 	--dataset union_conversations_v5_norm_markdown,liantong_conversations_v1_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
+# 	--gradient_accumulation_steps=4 --cutoff_len=4096 --epochs=3 --lr=5e-4 --save_strategy=epoch --warmup_ratio 0.1 --save_total_limit=10 \
+# 	--eval_dataset union_conversations_v5_dev_markdown --eval_strategy=steps --eval_steps=300
+
+# ./llmtrain.sh --do_train --do_eval --stage sft --finetuning_type full --name=0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1 \
+# 	--model_name_or_path /opt/nas/p/models/Qwen_models/Qwen2.5-14B-Instruct --template qwen \
+# 	--dataset alpace_gpt4_zh_retain,COIG_PC_core_summary_part,callsum_v6_train_markdown,diting_v2_markdown,beta_noise_v1_markdown \
+# 	--batch_size 1 --gradient_accumulation_steps 16 --cutoff_len 4096 --epochs 3 --lr 1e-5 --save_strategy epoch --save_total_limit 100 \
+# 	--neftune_noise_alpha 5 --eval_dataset callsum_v6_test_markdown --eval_strategy steps --eval_steps 500 --warmup_ratio 0.03
+
+# # wait
+# ./llmtrain.sh --do_train --do_eval --stage sft --finetuning_type full --name=0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr2e5_bs1 \
+# 	--model_name_or_path /opt/nas/p/models/Qwen_models/Qwen2.5-14B-Instruct --template qwen \
+# 	--dataset alpace_gpt4_zh_retain,COIG_PC_core_summary_part,callsum_v6_train_markdown,diting_v2_markdown,beta_noise_v1_markdown \
+# 	--batch_size 1 --gradient_accumulation_steps 16 --cutoff_len 4096 --epochs 3 --lr 2e-5 --save_strategy epoch --save_total_limit 100 \
+# 	--neftune_noise_alpha 5 --eval_dataset callsum_v6_test_markdown --eval_strategy steps --eval_steps 500 --warmup_ratio 0.03

@@ -1,4 +1,3 @@
-
 Usage() {
 	cat <<EOF
 Usage: train magiclm nano
@@ -12,7 +11,6 @@ Usage: train magiclm nano
 EOF
 }
 
-
 export NCCL_SOCKET_IFNAME=eth0
 export NCCL_IB_DISABLE=0
 export NCCL_IB_TIMEOUT=22
@@ -21,14 +19,15 @@ export NCCL_IB_TC=160
 export NCCL_NET_GDR_LEVEL=2
 export NCCL_IB_HCA=mlx5_bond_0,mlx5_bond_1,mlx5_bond_2,mlx5_bond_3,mlx5_bond_4,mlx5_bond_5,mlx5_bond_6,mlx5_bond_7
 export NCCL_ALGO=Ring
-export DS_ENV_FILE=/opt/nas/p/zhubin/code/LLaMA-Factory/.deepspeed_env
-export PROJECT_PATH=/opt/nas/p/zhubin/code/LLaMA-Factory/
-export PYTHONPATH=/opt/nas/p/zhubin/DATA/models/honor_2_5b_patched_tokenizer:$PYTHONPATH
+export DS_ENV_FILE=/opt/nas/p/zhubin/code/Llmtrain/.deepspeed_env
+export PROJECT_PATH=/opt/nas/p/zhubin/code/Llmtrain/
+export HF_HOME=/opt/local/data/
+
 cd ${PROJECT_PATH}
 export PYTHONPATH=${PROJECT_PATH}
 export DS_CONFIG_STAGE_3=${PROJECT_PATH}/config/deepspeed/zero_stage3_config.json
 export DS_CONFIG_STAGE_2=${PROJECT_PATH}/config/deepspeed/zero_stage2_config.json
-export WANDB_PROJECT="MagicLM_Nano"
+export WANDB_PROJECT="Llmtrain"
 
 MASTER_PORT=$(shuf -n 1 -i 10000-65535)
 
@@ -37,13 +36,14 @@ export dataset
 export stage
 export lr=2e-5
 export epochs=3
-export template=honor
+export template=qwen
 export finetuning_type=full
 export batch_size=4
+export hostfile=/opt/nas/p/zhubin/code/Llmtrain/config/hostfile
 export include
 export gradient_accumulation_steps=1
-export model_name_or_path=/opt/nas/p/zhubin/DATA/models/honor2_5b_patched_tokenizer/
-export resize_vocab=true
+export model_name_or_path
+export resize_vocab=false
 export save_strategy=steps
 export save_steps=5000
 export save_total_limit=2
@@ -51,12 +51,15 @@ export do_train=false
 export do_eval=false
 export logging_steps=5
 export cutoff_len=2048
-export warmup_ratio=0.03
+export warmup_ratio=0.05
 #lora fintuning
 export lora_rank=32
 export lora_target=all
 export lora_alpha=$((2 * ${lora_rank}))
-
+export lora_dropout=0.0
+#LoRA+
+export loraplus_lr_ratio
+export loraplus_lr_embedding=1e-6
 # dpo parameter
 export pref_loss=simpo
 export pref_beta=0.1
@@ -64,17 +67,15 @@ export simpo_gamma=0.5
 export ddp_timeout=180000000
 # neftune
 export neftune_noise_alpha
-
 ## eval
 export eval_dataset
 export eval_steps
 export eval_strategy=no
 
-
 options=$(getopt -l "help,do_train,do_eval,stage:,model_name_or_path:,name:,epochs:,lr:,batch_size:,template:,\
 finetuning_type:,dataset:,cutoff_len:,include:,resize_vocab:,gradient_accumulation_steps:,eval_dataset:,eval_strategy:,eval_steps:,\
-pref_loss:,pref_beta:,simpo_gamma:,ddp_timeout:,neftune_noise_alpha:,\
-lora_rank:,lora_alpha:,lora_target:,\
+pref_loss:,pref_beta:,simpo_gamma:,ddp_timeout:,neftune_noise_alpha:,hostfile:,\
+lora_rank:,lora_alpha:,lora_target:,lora_dropout:,loraplus_lr_ratio:,loraplus_lr_embedding:,\
 save_steps:,save_total_limit:,logging_steps:,warmup_ratio:,save_strategy:" -o "e:l:d:b:n:m:g:" -a -- "$@")
 
 eval set -- "$options"
@@ -131,6 +132,10 @@ while true; do
 	-n | --name)
 		shift
 		name="$1"
+		;;
+	--hostfile)
+		shift
+		hostfile="$1"
 		;;
 	--include)
 		shift
@@ -192,6 +197,18 @@ while true; do
 		shift
 		lora_target="$1"
 		;;
+	--lora_dropout)
+		shift
+		lora_dropout="$1"
+		;;
+	--loraplus_lr_ratio)
+		shift
+		loraplus_lr_ratio="$1"
+		;;
+	--loraplus_lr_embedding)
+		shift
+		loraplus_lr_embedding="$1"
+		;;
 	--eval_dataset)
 		shift
 		eval_dataset="$1"
@@ -220,26 +237,33 @@ else
 	optional_params+=(--neftune_noise_alpha ${neftune_noise_alpha})
 fi
 
-if [[ $do_eval=true ]];then
+if [[ -n $loraplus_lr_ratio ]]; then
+	optional_params+=(--loraplus_lr_ratio ${loraplus_lr_ratio})
+fi
+
+if [[ ${do_eval} = true ]]; then
 	optional_params+=(--eval_dataset ${eval_dataset})
+	optional_params+=(--eval_strategy ${eval_strategy})
 	optional_params+=(--eval_steps ${eval_steps})
 fi
 
 deepspeed_params=()
-if [[ -n $include ]];then
+if [[ -n $include ]]; then
 	deepspeed_params+=(--include $include)
 fi
 
 export OUTPUT_DIR=/opt/nas/p/zhubin/saved_checkpoint/$name
 export WANDB_DIR=$OUTPUT_DIR/logs
-export HOSTFILE=/opt/nas/p/zhubin/code/LLaMA-Factory/config/hostfile
+
 mkdir -p ${OUTPUT_DIR}
 mkdir -p ${WANDB_DIR}
 
 echo "wandb dir=$WANDB_DIR"
-deepspeed --hostfile=${HOSTFILE} --master_port=${MASTER_PORT} "${deepspeed_params[@]}" --no_local_rank \
+echo "working directory=$(pwd)"
+
+deepspeed --hostfile=$hostfile --master_port=${MASTER_PORT} "${deepspeed_params[@]}" --no_local_rank \
 	src/train.py \
-	--deepspeed ${DS_CONFIG_STAGE_3} \
+	--deepspeed ${DS_CONFIG_STAGE_2} \
 	--stage ${stage} \
 	--run_name $name \
 	--pref_beta ${pref_beta} \
@@ -248,9 +272,9 @@ deepspeed --hostfile=${HOSTFILE} --master_port=${MASTER_PORT} "${deepspeed_param
 	--template ${template} \
 	--do_train ${do_train} \
 	--do_eval ${do_eval} \
-	--eval_strategy ${eval_strategy} \
 	--model_name_or_path $model_name_or_path \
-	--resize_vocab true \
+	--trust_remote_code true \
+	--resize_vocab $resize_vocab \
 	--use_fast_tokenizer false \
 	--report_to wandb \
 	--overwrite_output_dir \
@@ -263,6 +287,8 @@ deepspeed --hostfile=${HOSTFILE} --master_port=${MASTER_PORT} "${deepspeed_param
 	--finetuning_type ${finetuning_type} \
 	--lora_rank ${lora_rank} \
 	--lora_target ${lora_target} \
+	--lora_dropout ${lora_dropout} \
+	--loraplus_lr_embedding ${loraplus_lr_embedding} \
 	--warmup_ratio ${warmup_ratio} \
 	--logging_steps ${logging_steps} \
 	--lr_scheduler_type cosine \

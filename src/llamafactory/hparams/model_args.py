@@ -174,7 +174,7 @@ class ModelArguments(QuantizationArguments, ProcessorArguments, ExportArguments,
         metadata={"help": "The folder containing the adapter weights to load."},
     )
     cache_dir: Optional[str] = field(
-        default="/opt/nas/p/zhubin/.cache/huggingface/datasets",
+        default="/opt/local/data/",
         metadata={"help": "Where to store the pre-trained models downloaded from huggingface.co or modelscope.cn."},
     )
     use_fast_tokenizer: bool = field(

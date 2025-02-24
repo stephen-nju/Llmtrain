@@ -15,7 +15,7 @@
 import os
 
 from llamafactory.train.tuner import run_exp
-
+os.environ["WANDB_MODE"]="offline"
 
 def main():
     try:
