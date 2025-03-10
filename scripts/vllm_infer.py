@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+from typing import Optional
 
 import fire
 from transformers import Seq2SeqTrainingArguments
@@ -45,6 +46,7 @@ def vllm_infer(
     top_k: int = 50,
     max_new_tokens: int = 1024,
     repetition_penalty: float = 1.0,
+    seed: Optional[int] = None,
     pipeline_parallel_size: int = 1,
     image_max_pixels: int = 768 * 768,
     image_min_pixels: int = 32 * 32,
@@ -53,7 +55,7 @@ def vllm_infer(
     Performs batch generation using vLLM engine, which supports tensor parallelism.
     Usage: python vllm_infer.py --model_name_or_path meta-llama/Llama-2-7b-hf --template llama --dataset alpaca_en_demo
     """
-    check_version("vllm>=0.4.3,<=0.7.2")
+    check_version("vllm>=0.4.3,<=0.7.3")
     if pipeline_parallel_size > get_device_count():
         raise ValueError("Pipeline parallel size should be smaller than the number of gpus.")
 
@@ -108,6 +110,7 @@ def vllm_infer(
         stop_token_ids=template_obj.get_stop_token_ids(tokenizer),
         max_tokens=generating_args.max_new_tokens,
         skip_special_tokens=False,
+        seed=seed,
     )
     if model_args.adapter_name_or_path is not None:
         lora_request = LoRARequest("default", 1, model_args.adapter_name_or_path[0])
