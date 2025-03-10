@@ -39,6 +39,8 @@ export epochs=3
 export template=qwen
 export finetuning_type=full
 export batch_size=4
+export weight_decay=0
+export max_grad_norm=1
 export hostfile=/opt/nas/p/zhubin/code/Llmtrain/config/hostfile
 export include
 export gradient_accumulation_steps=1
@@ -74,7 +76,7 @@ export eval_strategy=no
 
 options=$(getopt -l "help,do_train,do_eval,stage:,model_name_or_path:,name:,epochs:,lr:,batch_size:,template:,\
 finetuning_type:,dataset:,cutoff_len:,include:,resize_vocab:,gradient_accumulation_steps:,eval_dataset:,eval_strategy:,eval_steps:,\
-pref_loss:,pref_beta:,simpo_gamma:,ddp_timeout:,neftune_noise_alpha:,hostfile:,\
+pref_loss:,pref_beta:,simpo_gamma:,ddp_timeout:,neftune_noise_alpha:,hostfile:,weight_decay:,max_grad_norm:,\
 lora_rank:,lora_alpha:,lora_target:,lora_dropout:,loraplus_lr_ratio:,loraplus_lr_embedding:,\
 save_steps:,save_total_limit:,logging_steps:,warmup_ratio:,save_strategy:" -o "e:l:d:b:n:m:g:" -a -- "$@")
 
@@ -221,6 +223,14 @@ while true; do
 		shift
 		eval_steps="$1"
 		;;
+	--weight_decay)
+		shift
+		weight_decay="$1"
+		;;
+	--max_grad_norm)
+		shift
+		max_grad_norm="$1"
+		;;
 	--)
 		shift
 		break
@@ -265,10 +275,8 @@ deepspeed --hostfile=$hostfile --master_port=${MASTER_PORT} "${deepspeed_params[
 	src/train.py \
 	--deepspeed ${DS_CONFIG_STAGE_2} \
 	--stage ${stage} \
+	--seed 42 \
 	--run_name $name \
-	--pref_beta ${pref_beta} \
-	--pref_loss ${pref_loss} \
-	--simpo_gamma ${simpo_gamma} \
 	--template ${template} \
 	--do_train ${do_train} \
 	--do_eval ${do_eval} \
@@ -295,6 +303,11 @@ deepspeed --hostfile=$hostfile --master_port=${MASTER_PORT} "${deepspeed_params[
 	--per_device_train_batch_size ${batch_size} \
 	--per_device_eval_batch_size ${batch_size} \
 	--gradient_accumulation_steps ${gradient_accumulation_steps} \
+	--weight_decay ${weight_decay} \
+	--max_grad_norm ${max_grad_norm} \
+	--pref_beta ${pref_beta} \
+	--pref_loss ${pref_loss} \
+	--simpo_gamma ${simpo_gamma} \
 	--preprocessing_num_workers 16 \
 	--save_strategy ${save_strategy} \
 	--save_steps ${save_steps} \

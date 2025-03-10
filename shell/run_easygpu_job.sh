@@ -1,6 +1,5 @@
 exec >/opt/nas/p/zhubin/easyjobLog/pytorch.log
 echo "hoststr==${hoststr}"
-echo "pwd==$(pwd)"
 echo $hoststr | sed 's/,/\n/g' >/opt/nas/p/zhubin/code/Llmtrain/cache/hostfile
 export HF_HOME=/opt/local/data/
 vc -proxy open
@@ -15,10 +14,36 @@ vc -proxy open
 # 	--gradient_accumulation_steps 1 --cutoff_len=4096 --epochs=3 --lr=1e-4 --save_strategy=epoch --warmup_ratio 0.03 --save_total_limit=3 --eval_dataset \
 # 	union_conversations_v5_dev --eval_strategy=steps --eval_steps=300
 
-# ./llmtrain.sh --do_train --do_eval --stage sft --finetuning_type lora --template glm-edge --lora_rank 32 --lora_target q_proj,k_proj,v_proj --loraplus_lr_ratio 16 \
-# 	--name=20150121_glm4edge_acfvculdu_loraplus16_ep3_lr5e4_bs4 \
-# 	--model_name_or_path /opt/nas/n/zhubin/DATA/models/THUDM/glm-edge-4b-chat/ \
-# 	--dataset alpace_gpt4_zh_retain,COIG_PC_core_summary_part,firefly_summary_part,vcsum_headlines,csds_dialogue,union_conversations_v5_norm_markdown,liantong_conversations_v1_markdown,diting_v1_markdown,union_conversations_v4_ll_markdown \
-# 	--gradient_accumulation_steps=4 --cutoff_len=4096 --epochs=3 --lr=5e-4 --save_strategy=epoch --warmup_ratio 0.1 --save_total_limit=10 \
-# 	--eval_dataset union_conversations_v5_dev --eval_strategy=steps --eval_steps=300 \
-# 	--hostfile /opt/nas/p/zhubin/code/Llmtrain/cache/hostfile
+
+# ./llmtrain.sh --do_train --do_eval --hostfile /opt/nas/p/zhubin/code/Llmtrain/cache/hostfile \
+#     --stage sft --finetuning_type full --name=0228_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1 \
+# 	--model_name_or_path /opt/nas/p/models/Qwen_models/Qwen2.5-14B-Instruct --template qwen \
+# 	--dataset alpace_gpt4_zh_retain,COIG_PC_core_summary_part,distill_r1_4w,callsum_v6_train_markdown,diting_v2_markdown,beta_noise_v1_markdown \
+# 	--batch_size 1 --gradient_accumulation_steps 16 --cutoff_len 4096 --epochs 2 --lr 1e-5 --save_strategy epoch --save_total_limit 100 \
+# 	--neftune_noise_alpha 5 --eval_dataset callsum_v6_test_markdown --eval_strategy steps --eval_steps 500 --warmup_ratio 0.1
+
+
+./llmtrain.sh --do_train --do_eval --hostfile /opt/nas/p/zhubin/code/Llmtrain/cache/hostfile \
+    --stage sft --finetuning_type full --name=0301_Qwen2.5-14B-Instruct_neft_cdb_markdown_ep3_lr1e5_bs1 \
+	--model_name_or_path /opt/nas/p/models/Qwen_models/Qwen2.5-14B-Instruct --template qwen \
+	--dataset callsum_v6_train_markdown,diting_v2_markdown,beta_noise_v1_markdown \
+	--batch_size 1 --gradient_accumulation_steps 16 --cutoff_len 4096 --epochs 3 --lr 1e-5 --save_strategy epoch --save_total_limit 100 \
+	--neftune_noise_alpha 5 --eval_dataset callsum_v6_test_markdown --eval_strategy steps --eval_steps 500 --warmup_ratio 0.03
+
+
+./llmtrain.sh --do_train --do_eval --hostfile /opt/nas/p/zhubin/code/Llmtrain/cache/hostfile \
+    --stage sft --finetuning_type full --name=0301_Qwen2.5-14B-Instruct_neft_cdb_markdown_wd_ep3_lr7e6_bs1 \
+	--model_name_or_path /opt/nas/p/models/Qwen_models/Qwen2.5-14B-Instruct --template qwen \
+	--dataset callsum_v6_train_markdown,diting_v2_markdown,beta_noise_v1_markdown \
+	--batch_size 1 --gradient_accumulation_steps 16 --cutoff_len 4096 --epochs 3 --lr 7e-6 --weight_decay 0.1 \
+	--save_strategy epoch --save_total_limit 100 \
+	--neftune_noise_alpha 5 --eval_dataset callsum_v6_test_markdown --eval_strategy steps --eval_steps 500 --warmup_ratio 0.03
+
+
+./llmtrain.sh --do_train --do_eval --hostfile /opt/nas/p/zhubin/code/Llmtrain/cache/hostfile \
+    --stage sft --finetuning_type full --name=0301_Qwen2.5-14B-Instruct_neft_accdb_markdown_wd_ep3_lr7e6_bs1 \
+	--model_name_or_path /opt/nas/p/models/Qwen_models/Qwen2.5-14B-Instruct --template qwen \
+	--dataset alpace_gpt4_zh_retain,COIG_PC_core_summary_part,callsum_v6_train_markdown,diting_v2_markdown,beta_noise_v1_markdown \
+	--batch_size 1 --gradient_accumulation_steps 16 --cutoff_len 4096 --epochs 3 --lr 7e-6 --weight_decay 0.1 \
+	--save_strategy epoch --save_total_limit 100 \
+	--neftune_noise_alpha 5 --eval_dataset callsum_v6_test_markdown --eval_strategy steps --eval_steps 500 --warmup_ratio 0.03

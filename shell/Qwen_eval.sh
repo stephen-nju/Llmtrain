@@ -63,12 +63,16 @@ while true; do
 done
 
 optional_params=()
-if [[ -n $adapter_name_or_path ]]; then
-	output_dir=${adapter_name_or_path}/${output_name}
-	optional_params+=(--adapter_name_or_path ${adapter_name_or_path})
-else
-	output_dir=${model_name_or_path}/${output_name}
+if [[ -z $output_dir ]]; then
+	if [[ -n $adapter_name_or_path ]]; then
+		output_dir=${adapter_name_or_path}
+		optional_params+=(--adapter_name_or_path ${adapter_name_or_path})
+	else
+		output_dir=${model_name_or_path}
+	fi
 fi
+
+output_dir=${output_dir}/$output_name
 
 attrun \
 	--hoststr="${hoststr}" \
@@ -92,23 +96,23 @@ attrun \
 	--overwrite_output_dir true \
 	"${optional_params[@]}"
 
-attrun \
-	--hoststr="${hoststr}" \
-	torchrun \
-	--nproc_per_node=\$nproc_per_node --nnodes=\$nnodes --node_rank=\$node_rank --master_addr=\$master_addr \
-	src/train.py \
-	--stage sft \
-	--model_name_or_path ${model_name_or_path} \
-	--trust_remote_code true \
-	--resize_vocab false \
-	--do_eval \
-	--eval_dataset ${eval_dataset} \
-	--template ${template} \
-	--finetuning_type ${finetuning_type} \
-	--output_dir ${output_dir} \
-	--cutoff_len 4096 \
-	--max_new_tokens 512 \
-	--do_sample false \
-	--per_device_eval_batch_size 2 \
-	--overwrite_output_dir true \
-	"${optional_params[@]}"
+# attrun \
+# 	--hoststr="${hoststr}" \
+# 	torchrun \
+# 	--nproc_per_node=\$nproc_per_node --nnodes=\$nnodes --node_rank=\$node_rank --master_addr=\$master_addr \
+# 	src/train.py \
+# 	--stage sft \
+# 	--model_name_or_path ${model_name_or_path} \
+# 	--trust_remote_code true \
+# 	--resize_vocab false \
+# 	--do_eval \
+# 	--eval_dataset ${eval_dataset} \
+# 	--template ${template} \
+# 	--finetuning_type ${finetuning_type} \
+# 	--output_dir ${output_dir} \
+# 	--cutoff_len 4096 \
+# 	--max_new_tokens 512 \
+# 	--do_sample false \
+# 	--per_device_eval_batch_size 2 \
+# 	--overwrite_output_dir true \
+# 	"${optional_params[@]}"

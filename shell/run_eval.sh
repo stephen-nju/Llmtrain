@@ -291,27 +291,79 @@
 # 	--adapter_name_or_path /opt/nas/p/zhubin/saved_checkpoint/20250117_magiclmnano_acfvculdu_loraplus16_ep3_lr1e4_bs4/checkpoint-3162/ \
 # 	--eval_dataset union_conversations_v5_dev_markdown --finetuning_type lora
 
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-714 \
+# 	--eval_dataset callsum_v6_test_markdown --finetuning_type full
 
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-1429 \
+# 	--eval_dataset callsum_v6_test_markdown --finetuning_type full
 
-./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-714 \
-	--eval_dataset callsum_v6_test_markdown --finetuning_type full
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-2142 \
+# 	--eval_dataset callsum_v6_test_markdown --finetuning_type full
 
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr2e5_bs1/checkpoint-714 \
+# 	--eval_dataset callsum_v6_test_markdown --finetuning_type full
 
-./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-1429 \
-	--eval_dataset callsum_v6_test_markdown --finetuning_type full
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr2e5_bs1/checkpoint-1429 \
+# 	--eval_dataset callsum_v6_test_markdown --finetuning_type full
 
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr2e5_bs1/checkpoint-2142 \
+# 	--eval_dataset callsum_v6_test_markdown --finetuning_type full
 
-./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-2142 \
-	--eval_dataset callsum_v6_test_markdown --finetuning_type full
+# CUDA_VISIBLE_DEVICES=0 && ./Qwen_eval.sh --hoststr "nlp-nlp-dialogue-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr2e5_bs1/checkpoint-1429 \
+# 	--eval_dataset diting_v2_markdown --output_name "business_test_v2" --finetuning_type full
 
+# /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-1429
 
-./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr2e5_bs1/checkpoint-714 \
-	--eval_dataset callsum_v6_test_markdown --finetuning_type full
+# ./Qwen_eval.sh --hoststr "nlp-nlp-dialogue-0 slots=1" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-1429 \
+# 	--eval_dataset diting_v2_markdown --output_name "business_test_v2" --finetuning_type full
 
+# ./Qwen_eval.sh --hoststr "nlp-nlp-dialogue-0 slots=1" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-714 \
+# 	--eval_dataset diting_v2_markdown --output_name "business_test_v2" --finetuning_type full
 
-./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr2e5_bs1/checkpoint-1429 \
-	--eval_dataset callsum_v6_test_markdown --finetuning_type full
+# ./Qwen_eval.sh --hoststr "nlp-nlp-dialogue-0 slots=1" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-2142 \
+# 	--eval_dataset diting_v2_markdown --output_name "business_test_v2" --finetuning_type full
 
+# ./Qwen_eval.sh --hoststr "nlp-nlp-dialogue-0 slots=1" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0228_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-1027 \
+# 	--eval_dataset diting_v2_markdown --output_name "business_test_v2" --finetuning_type full
 
-./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0222_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr2e5_bs1/checkpoint-2142 \
-	--eval_dataset callsum_v6_test_markdown --finetuning_type full
+# ./Qwen_eval.sh --hoststr "nlp-nlp-dialogue-0 slots=1" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0228_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-2054 \
+# 	--eval_dataset diting_v2_markdown --output_name "business_test_v2" --finetuning_type full
+
+# ./Qwen_eval.sh --hoststr "nlp-nlp-dialogue-0 slots=1" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0228_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-1027 \
+# 	--eval_dataset callsum_v6_test_markdown --output_name "output" --finetuning_type full
+
+# ./Qwen_eval.sh --hoststr "nlp-nlp-dialogue-0 slots=1" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0228_Qwen2.5-14B-Instruct_neft_accdb_markdown_ep3_lr1e5_bs1/checkpoint-2054 \
+# 	--eval_dataset callsum_v6_test_markdown --output_name "output" --finetuning_type full
+
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0301_Qwen2.5-14B-Instruct_neft_accdb_markdown_wd_ep3_lr7e6_bs1/checkpoint-714 \
+# 	--eval_dataset callsum_v6_test_markdown --output_name "output" --finetuning_type full
+
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0301_Qwen2.5-14B-Instruct_neft_accdb_markdown_wd_ep3_lr7e6_bs1/checkpoint-714 \
+# 	--eval_dataset diting_v2_markdown --output_name "business_test_v2" --finetuning_type full
+
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0301_Qwen2.5-14B-Instruct_neft_accdb_markdown_wd_ep3_lr7e6_bs1/checkpoint-1429 \
+# 	--eval_dataset callsum_v6_test_markdown --output_name "output" --finetuning_type full
+
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0301_Qwen2.5-14B-Instruct_neft_accdb_markdown_wd_ep3_lr7e6_bs1/checkpoint-1429 \
+# 	--eval_dataset diting_v2_markdown --output_name "business_test_v2" --finetuning_type full
+
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0301_Qwen2.5-14B-Instruct_neft_cdb_markdown_wd_ep3_lr7e6_bs1/checkpoint-596 \
+# 	--eval_dataset callsum_v6_test_markdown --output_name "output" --finetuning_type full
+
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0301_Qwen2.5-14B-Instruct_neft_cdb_markdown_wd_ep3_lr7e6_bs1/checkpoint-596 \
+# 	--eval_dataset diting_v2_markdown --output_name "business_test_v2" --finetuning_type full
+
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0301_Qwen2.5-14B-Instruct_neft_cdb_markdown_wd_ep3_lr7e6_bs1/checkpoint-894 \
+# 	--eval_dataset callsum_v6_test_markdown --output_name "output" --finetuning_type full
+
+# ./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0301_Qwen2.5-14B-Instruct_neft_cdb_markdown_wd_ep3_lr7e6_bs1/checkpoint-894 \
+# 	--eval_dataset diting_v2_markdown --output_name "business_test_v2" --finetuning_type full
+
+./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0301_Qwen2.5-14B-Instruct_neft_accdb_markdown_wd_ep3_lr7e6_bs1/checkpoint-1429 \
+	--eval_dataset second_batch --output_name "second_batch" --finetuning_type full
+
+./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0301_Qwen2.5-14B-Instruct_neft_cdb_markdown_wd_ep3_lr7e6_bs1/checkpoint-596 \
+	--eval_dataset second_batch --output_name "second_batch" --finetuning_type full
+
+./Qwen_eval.sh --hoststr "nlp-nlpsumm-0 slots=8" --model_name_or_path /opt/nas/p/zhubin/saved_checkpoint/0301_Qwen2.5-14B-Instruct_neft_cdb_markdown_ep3_lr1e5_bs1/checkpoint-596 \
+	--eval_dataset second_batch --output_name "second_batch" --finetuning_type full
