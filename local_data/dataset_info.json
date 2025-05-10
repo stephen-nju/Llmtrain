@@ -182,58 +182,58 @@
             "history": ""
         }
     },
-    "swindle_data_v1":{
-        "file_name":"/opt/nas/p/zhubin/DATA/train_data/zb/swindle_data_v1/diting_swindle_iio_llf_train.json",
-        "columns":{
-            "prompt":"instruction",
-            "query":"input",
-            "response":"output",
-            "history":""
+    "swindle_data_v1": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/swindle_data_v1/diting_swindle_iio_llf_train.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
         }
     },
-    "dialogsum_chinese":{
-        "file_name":"/opt/nas/p/zhubin/DATA/train_data/zb/dialogsum/dialogsum_conversation_train_iio_llf_v1.json",
-        "columns":{
-            "prompt":"instruction",
-            "query":"input",
-            "response":"output",
-            "history":""
+    "dialogsum_chinese": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/dialogsum/dialogsum_conversation_train_iio_llf_v1.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
         }
     },
-    "dialogsum_chinese_markdown":{
-        "file_name":"/opt/nas/p/zhubin/DATA/train_data/zb/dialogsum/dialogsum_conversation_train_iio_llf_v1_markdownv1.json",
-        "columns":{
-            "prompt":"instruction",
-            "query":"input",
-            "response":"output",
-            "history":""
+    "dialogsum_chinese_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/dialogsum/dialogsum_conversation_train_iio_llf_v1_markdownv1.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
         }
     },
-    "samsum_chinese":{
-        "file_name":"/opt/nas/p/zhubin/DATA/train_data/zb/samsum/samsum_conversation_train_iio_llf_v1.json",
-        "columns":{
-            "prompt":"instruction",
-            "query":"input",
-            "response":"output",
-            "history":""
+    "samsum_chinese": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/samsum/samsum_conversation_train_iio_llf_v1.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
         }
     },
-    "samsum_chinese_markdown":{
-        "file_name":"/opt/nas/p/zhubin/DATA/train_data/zb/samsum/samsum_conversation_train_iio_llf_v1_markdownv1.json",
-        "columns":{
-            "prompt":"instruction",
-            "query":"input",
-            "response":"output",
-            "history":""
+    "samsum_chinese_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/samsum/samsum_conversation_train_iio_llf_v1_markdownv1.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
         }
     },
-    "call_summarization_ppo_train":{
-        "file_name":"/opt/nas/p/zhubin/DATA/train_data/zb/PPO/call_summarization_ppo_train.json",
-        "columns":{
-            "prompt":"instruction",
-            "query":"input",
-            "response":"output",
-            "history":""
+    "call_summarization_ppo_train": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/PPO/call_summarization_ppo_train.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
         }
     },
     "english_dev": {
@@ -456,132 +456,128 @@
         }
     },
     "rym_ner_train": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/任意门实体识别_实体识别_严德美/train.json",
-    "columns": {
-      "prompt": "input",
-      "query": "",
-      "response": "output"
-    }
-  },
-  "任意门实体识别_实体识别_eval": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/任意门实体识别_实体识别_严德美/test.json",
-    "columns": {
-      "prompt": "input",
-      "query": "",
-      "response": "output"
-    }
-  },
-  "common_rym_ner_train": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/任意门实体识别_实体识别_严德美/通用_train.json",
-    "columns": {
-      "prompt": "input",
-      "query": "",
-      "response": "output"
-    }
-  },
-  "common_任意门实体识别_实体识别_eval": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/任意门实体识别_实体识别_严德美/通用_test.json",
-    "columns": {
-      "prompt": "input",
-      "query": "",
-      "response": "output"
-    }
-  },
-  "yjzl_train": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/用机助理/train.json",
-    "columns": {
-      "prompt": "instruction",
-      "query": "input",
-      "response": "output"
-    }
-  },
-  "yjzl_eval": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/用机助理/test.json",
-    "columns": {
-      "prompt": "instruction",
-      "query": "input",
-      "response": "output"
-    }
-  },
-
-  "thzy_train": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/通话摘要/union_conversations_train_v3.json",
-    "columns": {
-      "prompt": "instruction",
-      "query": "input",
-      "response": "output"
-    }
-  },
-  "thzy_eval": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/通话摘要/union_conversations_dev_iio_lff_v2.json",
-    "columns": {
-      "prompt": "instruction",
-      "query": "input",
-      "response": "output"
-    }
-  },
-  "rccq_train": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/日程抽取/train.json",
-    "columns": {
-      "prompt": "input",
-      "query": "",
-      "response": "output"
-    }
-  },
-  "rccq_eval": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/日程抽取/dev.json",
-    "columns": {
-      "prompt": "input",
-      "query": "",
-      "response": "output"
-    }
-  },
-  "rccq_final_valid": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/日程抽取/final_valid.json",
-    "columns": {
-      "prompt": "input",
-      "query": "",
-      "response": ""
-    }
-  },
-
-
-  "tzjx_train": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/通知解析/train.json",
-    "columns": {
-      "prompt": "input",
-      "query": "",
-      "response": "output"
-    }
-  },
-  "tzjx_eval": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/通知解析/dev.json",
-    "columns": {
-      "prompt": "input",
-      "query": "",
-      "response": "output"
-    }
-  },
-
-  "gjccq_train": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/关键词抽取/train_corrected.json",
-    "columns": {
-      "prompt": "instruction",
-      "query": "input",
-      "response": "output",
-      "history":"history"
-    }
-  },
-  "gjccq_eval": {
-    "file_name": "/opt/nas/p/qff/dataset/working_datas/关键词抽取/valid.json",
-    "columns": {
-      "prompt": "input",
-      "query": "",
-      "response": "output"
-    }
-},
-    "callsum_v7.1_train_markdown": {
-        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v7/conversations_norm_iio_train_v7.1_markdown.json",
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/任意门实体识别_实体识别_严德美/train.json",
+        "columns": {
+            "prompt": "input",
+            "query": "",
+            "response": "output"
+        }
+    },
+    "任意门实体识别_实体识别_eval": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/任意门实体识别_实体识别_严德美/test.json",
+        "columns": {
+            "prompt": "input",
+            "query": "",
+            "response": "output"
+        }
+    },
+    "common_rym_ner_train": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/任意门实体识别_实体识别_严德美/通用_train.json",
+        "columns": {
+            "prompt": "input",
+            "query": "",
+            "response": "output"
+        }
+    },
+    "common_任意门实体识别_实体识别_eval": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/任意门实体识别_实体识别_严德美/通用_test.json",
+        "columns": {
+            "prompt": "input",
+            "query": "",
+            "response": "output"
+        }
+    },
+    "yjzl_train": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/用机助理/train.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output"
+        }
+    },
+    "yjzl_eval": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/用机助理/test.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output"
+        }
+    },
+    "thzy_train": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/通话摘要/union_conversations_train_v3.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output"
+        }
+    },
+    "thzy_eval": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/通话摘要/union_conversations_dev_iio_lff_v2.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output"
+        }
+    },
+    "rccq_train": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/日程抽取/train.json",
+        "columns": {
+            "prompt": "input",
+            "query": "",
+            "response": "output"
+        }
+    },
+    "rccq_eval": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/日程抽取/dev.json",
+        "columns": {
+            "prompt": "input",
+            "query": "",
+            "response": "output"
+        }
+    },
+    "rccq_final_valid": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/日程抽取/final_valid.json",
+        "columns": {
+            "prompt": "input",
+            "query": "",
+            "response": ""
+        }
+    },
+    "tzjx_train": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/通知解析/train.json",
+        "columns": {
+            "prompt": "input",
+            "query": "",
+            "response": "output"
+        }
+    },
+    "tzjx_eval": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/通知解析/dev.json",
+        "columns": {
+            "prompt": "input",
+            "query": "",
+            "response": "output"
+        }
+    },
+    "gjccq_train": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/关键词抽取/train_corrected.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": "history"
+        }
+    },
+    "gjccq_eval": {
+        "file_name": "/opt/nas/p/qff/dataset/working_datas/关键词抽取/valid.json",
+        "columns": {
+            "prompt": "input",
+            "query": "",
+            "response": "output"
+        }
+    },
+    "callsum_v6_test_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v6/conversations_full_iio_test_v6_markdown.json",
         "columns": {
             "prompt": "instruction",
             "query": "input",
@@ -589,7 +585,51 @@
             "history": ""
         }
     },
-
+    "callsum_v6_train_norm_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v6/conversations_norm_iio_train_v6.1_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "callsum_v6_train_long_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v6/conversations_long_iio_train_v6.1_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "diting_v2_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v6/diting_full_iio_v2_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "beta_noise_v1_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v6/beta_noise_full_iio_v1_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "callsum_v7.1_train_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v7/conversations_full_iio_train_v7.1_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
     "callsum_v7_test_markdown": {
         "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v7/conversations_full_iio_test_v7_markdown.json",
         "columns": {
@@ -599,7 +639,6 @@
             "history": ""
         }
     },
-
     "diting_v7.2_markdown": {
         "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v7/diting_full_iio_v2_markdown.json",
         "columns": {
@@ -611,6 +650,121 @@
     },
     "beta_noise_v7.1_markdown": {
         "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v7/beta_noise_full_iio_v1_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "Inf_gens": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/Infinity_Instruct_Gen_multilanguage_sample100k.json",
+        "formatting": "sharegpt",
+        "columns": {
+            "messages": "conversations"
+        }
+    },
+    "callsum_v8.1_train_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v8/conversations_full_iio_train_v8.1_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "callsum_v8_test_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v8/conversations_full_iio_test_v8_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "diting_v8.2_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v8/diting_full_iio_v2_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "beta_noise_v8.1_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v8/beta_noise_full_iio_v1_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "zdjt_v8_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v8/zdjt_conversations_full_iio_train_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "diting_fraud_v8_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v8/diting_fraud_conversations_full_iio_train_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "callsum_v9.1_train_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v9/conversations_full_iio_train_v9.1_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "callsum_v9_test_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v9/conversations_full_iio_test_v9_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "diting_v9.2_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v9/diting_full_iio_v2_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "beta_noise_v9.1_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v9/beta_noise_full_iio_v1_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "zdjt_v9_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v9/zdjt_conversations_full_iio_train_markdown.json",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "history": ""
+        }
+    },
+    "diting_fraud_v9_markdown": {
+        "file_name": "/opt/nas/p/zhubin/DATA/train_data/zb/callsum_v9/diting_fraud_conversations_full_iio_train_markdown.json",
         "columns": {
             "prompt": "instruction",
             "query": "input",
