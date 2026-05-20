@@ -143,6 +143,12 @@ class ModelEngine:
         elif self.args.model_class == ModelClass.CLS:
             from transformers import AutoModelForTokenClassification
 
+            self.model_config.num_labels = 1
+            self.model_config.classifier_dropout = 0.0
+            text_config = getattr(self.model_config, "text_config", None)
+            if text_config is not None:
+                text_config.num_labels = 1
+                text_config.classifier_dropout = 0.0
             AutoClass = AutoModelForTokenClassification
         else:
             from transformers import AutoModel
