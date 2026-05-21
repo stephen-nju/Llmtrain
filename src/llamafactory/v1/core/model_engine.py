@@ -120,6 +120,7 @@ class ModelEngine:
             init_device = DistributedInterface().current_device
 
         init_kwargs = {} if self._deepspeed_zero3_enabled else {"device_map": init_device}
+        logger.info_rank0(f"Using attention implementation: {self.args.flash_attn}.")
 
         if self.args.quant_config is not None:
             from ..plugins.model_plugins.quantization import QuantizationPlugin
@@ -164,6 +165,7 @@ class ModelEngine:
                 self.args.model,
                 config=self.model_config,
                 dtype="auto",
+                attn_implementation=self.args.flash_attn,
                 trust_remote_code=self.args.trust_remote_code,
                 **init_kwargs,
             )
