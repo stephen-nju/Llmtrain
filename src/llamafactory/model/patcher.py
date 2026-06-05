@@ -457,9 +457,14 @@ def patch_model(
         prepare_valuehead_model(model)
 
     if model_args.resize_vocab:
+        # Pass the explicit list of newly added tokens so their exact embedding rows can be
+        # located and initialized, even when they land in a model's pre-existing padding zone.
+        new_tokens = (model_args.add_tokens or []) + (model_args.add_special_tokens or [])
+
         resize_embedding_layer(
             model,
             tokenizer,
+            new_tokens=new_tokens or None,
             new_special_tokens_config=getattr(model_args, "_special_token_descriptions", None),
             init_special_tokens=model_args.init_special_tokens,
         )
