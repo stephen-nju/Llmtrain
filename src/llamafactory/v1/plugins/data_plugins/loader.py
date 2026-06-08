@@ -49,7 +49,7 @@ def _get_builder_name(path: str) -> Literal["arrow", "csv", "json", "parquet", "
         raise ValueError(f"Unknown dataset filetype: {filetype}.")
 
 
-@DataLoaderPlugin("local").register()
+@DataLoaderPlugin("local").register
 def load_data_from_file(filepath: str, split: str, streaming: bool) -> HFDataset:
     if os.path.isdir(filepath):
         filetype = _get_builder_name(os.listdir(filepath)[0])
@@ -66,43 +66,49 @@ def load_data_from_file(filepath: str, split: str, streaming: bool) -> HFDataset
     return dataset
 
 
-def adjust_data_index(
-    data_index: list[tuple[str, int]], size: int | None, weight: float | None
-) -> list[tuple[str, int]]:
-    """Adjust dataset index by size and weight.
+class DataIndexPlugin(BasePlugin):
+    """Plugin for adjusting dataset index."""
 
-    Args:
-        data_index (list[tuple[str, int]]): List of (dataset_name, sample_index).
-        size (Optional[int]): Desired dataset size.
-        weight (Optional[float]): Desired dataset weight.
+    def adjust_data_index(
+        self, data_index: list[tuple[str, int]], size: int | None, weight: float | None
+    ) -> list[tuple[str, int]]:
+        """Adjust dataset index by size and weight.
 
-    Returns:
-        list[tuple[str, int]]: Adjusted dataset index.
-    """
-    if size is not None:
-        data_index = random.choices(data_index, k=size)
+        Args:
+            data_index (list[tuple[str, int]]): List of (dataset_name, sample_index).
+            size (Optional[int]): Desired dataset size.
+            weight (Optional[float]): Desired dataset weight.
 
-    if weight is not None:
-        data_index = random.choices(data_index, k=int(len(data_index) * weight))
+        Returns:
+            list[tuple[str, int]]: Adjusted dataset index.
+        """
+        if size is not None:
+            data_index = random.choices(data_index, k=size)
 
-    return data_index
+        if weight is not None:
+            data_index = random.choices(data_index, k=int(len(data_index) * weight))
+
+        return data_index
 
 
-def select_data_sample(
-    data_index: list[tuple[str, int]], index: slice | list[int] | Any
-) -> tuple[str, int] | list[tuple[str, int]]:
-    """Select dataset samples.
+class DataSelectorPlugin(BasePlugin):
+    """Plugin for selecting dataset samples."""
 
-    Args:
-        data_index (list[tuple[str, int]]): List of (dataset_name, sample_index).
-        index (Union[slice, list[int], Any]): Index of dataset samples.
+    def select(
+        self, data_index: list[tuple[str, int]], index: slice | list[int] | Any
+    ) -> tuple[str, int] | list[tuple[str, int]]:
+        """Select dataset samples.
 
-    Returns:
-        Union[tuple[str, int], list[tuple[str, int]]]: Selected dataset samples.
-    """
-    if isinstance(index, slice):
-        return [data_index[i] for i in range(*index.indices(len(data_index)))]
-    elif isinstance(index, list):
-        return [data_index[i] for i in index]
-    else:
-        raise ValueError(f"Invalid index type {type(index)}.")
+        Args:
+            data_index (list[tuple[str, int]]): List of (dataset_name, sample_index).
+            index (Union[slice, list[int], Any]): Index of dataset samples.
+
+        Returns:
+            Union[tuple[str, int], list[tuple[str, int]]]: Selected dataset samples.
+        """
+        if isinstance(index, slice):
+            return [data_index[i] for i in range(*index.indices(len(data_index)))]
+        elif isinstance(index, list):
+            return [data_index[i] for i in index]
+        else:
+            raise ValueError(f"Invalid index type {type(index)}.")

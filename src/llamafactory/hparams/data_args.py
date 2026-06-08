@@ -36,7 +36,7 @@ class DataArguments:
         metadata={"help": "The name of dataset(s) to use for evaluation. Use commas to separate multiple datasets."},
     )
     dataset_dir: str = field(
-        default="data",
+        default="local_data",
         metadata={"help": "Path to the folder containing the datasets."},
     )
     media_dir: str | None = field(
@@ -63,11 +63,9 @@ class DataArguments:
         default=16384,
         metadata={"help": "Size of the buffer to randomly sample examples from in dataset streaming."},
     )
-    mix_strategy: Literal["concat", "interleave_under", "interleave_over", "interleave_once"] = field(
+    mix_strategy: Literal["concat", "interleave_under", "interleave_over"] = field(
         default="concat",
-        metadata={
-            "help": "Strategy to use in dataset mixing (concat/interleave) (undersampling/oversampling/sampling w.o. replacement)."
-        },
+        metadata={"help": "Strategy to use in dataset mixing (concat/interleave) (undersampling/oversampling)."},
     )
     interleave_probs: str | None = field(
         default=None,
@@ -124,10 +122,6 @@ class DataArguments:
     enable_thinking: bool | None = field(
         default=True,
         metadata={"help": "Whether or not to enable thinking mode for reasoning models."},
-    )
-    preserve_thinking: bool = field(
-        default=False,
-        metadata={"help": "Whether or not to preserve thinking content in historical turns for reasoning models."},
     )
     tokenized_path: str | None = field(
         default=None,

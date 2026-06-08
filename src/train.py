@@ -11,12 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import os
 
 from llamafactory.train.tuner import run_exp
 
+os.environ["WANDB_MODE"] = "offline"
+
 
 def main():
-    run_exp()
+    try:
+        # 分布式训练业务逻辑代码
+        run_exp()
+        print(f"train pytorch job success, return 1")  # 任务成功打印输出，选填
+        os.system("vc -job success")  # 任务正常结束返回，必填
+    except Exception as e:
+        print(f"An error occurred: {e}, return -1")  # 任务失败打印输出，选填
+        os.system("vc -job failed")  # 任务异常报错返回，必填
 
 
 def _mp_fn(index):

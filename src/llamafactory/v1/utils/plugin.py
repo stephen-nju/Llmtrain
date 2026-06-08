@@ -13,9 +13,7 @@
 # limitations under the License.
 
 
-from collections import defaultdict
 from collections.abc import Callable
-from typing import Any
 
 from . import logging
 
@@ -27,63 +25,53 @@ class BasePlugin:
     """Base class for plugins.
 
     A plugin is a callable object that can be registered and called by name.
-
-    Example usage:
-    ```python
-    class PrintPlugin(BasePlugin):
-        def again(self):  # optional
-            self["again"]()
-
-
-    @PrintPlugin("hello").register()
-    def print_hello():
-        print("Hello world!")
-
-
-    @PrintPlugin("hello").register("again")
-    def print_hello_again():
-        print("Hello world! Again.")
-
-
-    PrintPlugin("hello")()
-    PrintPlugin("hello").again()
-    ```
     """
 
-    _registry: dict[str, dict[str, Callable]] = defaultdict(dict)
+    _registry: dict[str, Callable] = {}
 
-    def __init__(self, name: str | None = None) -> None:
-        """Initialize the plugin with a name."""
+    def __init__(self, name: str | None = None):
+        """Initialize the plugin with a name.
+
+        Args:
+            name (str): The name of the plugin.
+        """
         self.name = name
 
-    def register(self, method_name: str = "__call__") -> Callable:
-        """Decorator to register a function as a plugin."""
-        if self.name is None:
-            raise ValueError("Plugin name should be specified.")
+    @property
+    def register(self):
+        """Decorator to register a function as a plugin.
 
-        if method_name in self._registry[self.name]:
-            logger.warning_rank0_once(f"Method {method_name} of plugin {self.name} is already registered.")
+        Example usage:
+        ```python
+        @PrintPlugin("hello").register()
+        def print_hello():
+            print("Hello world!")
+        ```
+        """
+        if self.name is None:
+            raise ValueError("Plugin name is not specified.")
+
+        if self.name in self._registry:
+            logger.warning_rank0_once(f"Plugin {self.name} is already registered.")
 
         def decorator(func: Callable) -> Callable:
-            self._registry[self.name][method_name] = func
+            self._registry[self.name] = func
             return func
 
         return decorator
 
-    def __call__(self, *args, **kwargs) -> Any:
-        """Call the registered function with the given arguments."""
-        return self["__call__"](*args, **kwargs)
+    def __call__(self, *args, **kwargs):
+        """Call the registered function with the given arguments.
 
-    def __getattr__(self, method_name: str) -> Callable:
-        """Get the registered function with the given name."""
-        return self[method_name]
+        Example usage:
+        ```python
+        PrintPlugin("hello")()
+        ```
+        """
+        if self.name not in self._registry:
+            raise ValueError(f"Plugin {self.name} is not registered.")
 
-    def __getitem__(self, method_name: str) -> Callable:
-        """Get the registered function with the given name."""
-        if method_name not in self._registry[self.name]:
-            raise ValueError(f"Method {method_name} of plugin {self.name} is not registered.")
-
-        return self._registry[self.name][method_name]
+        return self._registry[self.name](*args, **kwargs)
 
 
 if __name__ == "__main__":
@@ -92,16 +80,10 @@ if __name__ == "__main__":
     """
 
     class PrintPlugin(BasePlugin):
-        def again(self):  # optional
-            self["again"]()
+        pass
 
-    @PrintPlugin("hello").register()
+    @PrintPlugin("hello").register
     def print_hello():
         print("Hello world!")
 
-    @PrintPlugin("hello").register("again")
-    def print_hello_again():
-        print("Hello world! Again.")
-
     PrintPlugin("hello")()
-    PrintPlugin("hello").again()

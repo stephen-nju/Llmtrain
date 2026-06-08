@@ -28,21 +28,17 @@ And data parallelism types:
 
 from dataclasses import dataclass
 from datetime import timedelta
-from enum import StrEnum
+from enum import Enum
 from typing import Any, Optional
 
 from torch.distributed import barrier, destroy_process_group, init_process_group
 from torch.distributed.device_mesh import DeviceMesh, init_device_mesh
 
-from ..utils import logging
-from ..utils.types import DistributedConfig, ProcessGroup, TensorLike
+from ..utils.types import DistributedConfig, ProcessGroup, Tensor, TensorLike
 from . import helper
 
 
-logger = logging.get_logger(__name__)
-
-
-class Dim(StrEnum):
+class Dim(str, Enum):
     """Dimension names."""
 
     MP_REPLICATE = "mp_replicate"
@@ -123,15 +119,12 @@ class DistributedInterface:
         if self._initialized:
             return
 
-        self.dist_config = config
-
-        helper.set_device_index()
         self._is_distributed = helper.is_distributed()
         self._rank = helper.get_rank()
         self._world_size = helper.get_world_size()
         self._local_rank = helper.get_local_rank()
         self._local_world_size = helper.get_local_world_size()
-        self.current_device = helper.get_current_device()
+        self.current_accelerator = helper.get_current_accelerator()
         self.device_count = helper.get_device_count()
 
         if config is None:
@@ -147,14 +140,15 @@ class DistributedInterface:
             timeout = config.get("timeout", 18000)
 
         if self._is_distributed:
-            init_process_group(timeout=timedelta(seconds=timeout), backend=helper.get_process_group_backend())
+            helper.set_device()
+            init_process_group(timeout=timedelta(seconds=timeout))
             self.model_device_mesh = init_device_mesh(
-                device_type=self.current_device.type,
+                device_type=self.current_accelerator.type,
                 mesh_shape=self.strategy.model_mesh_shape,
                 mesh_dim_names=self.strategy.model_mesh_dim_names,
             )
             self.data_device_mesh = init_device_mesh(
-                device_type=self.current_device.type,
+                device_type=self.current_accelerator.type,
                 mesh_shape=self.strategy.data_mesh_shape,
                 mesh_dim_names=self.strategy.data_mesh_dim_names,
             )
@@ -163,12 +157,11 @@ class DistributedInterface:
             self.data_device_mesh = None
 
         self._initialized = True
-        logger.info_rank0(f"DistributedInterface initialized: {self}.")
 
     def __str__(self) -> str:
         return (
             f"DistributedInterface(strategy={self.strategy}), is_distributed={self._is_distributed}, "
-            f"current_device={self.current_device}, rank={self._rank}, world_size={self._world_size}, "
+            f"current_accelerator={self.current_accelerator}, rank={self._rank}, world_size={self._world_size}, "
             f"model_device_mesh={self.model_device_mesh}, data_device_mesh={self.data_device_mesh}"
         )
 
@@ -176,7 +169,7 @@ class DistributedInterface:
         """Get device mesh for specified dimension."""
         if dim is None:
             raise ValueError("dim must be specified.")
-        elif not self._is_distributed:
+        elif self.model_device_mesh is None:
             return None
         elif dim in self.strategy.data_mesh_dim_names:
             return self.data_device_mesh[dim.value]
@@ -185,14 +178,14 @@ class DistributedInterface:
 
     def get_group(self, dim: Dim | None = None) -> Optional[ProcessGroup]:
         """Get process group for specified dimension."""
-        if not self._is_distributed or dim is None:
+        if self.model_device_mesh is None or dim is None:
             return None
         else:
             return self.get_device_mesh(dim).get_group()
 
     def get_rank(self, dim: Dim | None = None) -> int:
         """Get parallel rank for specified dimension."""
-        if not self._is_distributed:
+        if self.model_device_mesh is None:
             return 0
         elif dim is None:
             return self._rank
@@ -201,7 +194,7 @@ class DistributedInterface:
 
     def get_world_size(self, dim: Dim | None = None) -> int:
         """Get parallel size for specified dimension."""
-        if not self._is_distributed:
+        if self.model_device_mesh is None:
             return 1
         elif dim is None:
             return self._world_size
@@ -216,9 +209,9 @@ class DistributedInterface:
         """Get parallel local world size."""
         return self._local_world_size
 
-    def all_gather(self, data: TensorLike, dim: Dim | None = Dim.DP) -> TensorLike:
+    def all_gather(self, data: Tensor, dim: Dim | None = Dim.DP) -> Tensor:
         """Gather tensor across specified parallel group."""
-        if self._is_distributed:
+        if self.model_device_mesh is not None:
             return helper.operate_tensorlike(helper.all_gather, data, group=self.get_group(dim))
         else:
             return data
@@ -227,36 +220,30 @@ class DistributedInterface:
         self, data: TensorLike, op: helper.ReduceOp = helper.ReduceOp.MEAN, dim: Dim | None = Dim.DP
     ) -> TensorLike:
         """Reduce tensor across specified parallel group."""
-        if self._is_distributed:
+        if self.model_device_mesh is not None:
             return helper.operate_tensorlike(helper.all_reduce, data, op=op, group=self.get_group(dim))
         else:
             return data
 
     def broadcast(self, data: TensorLike, src: int = 0, dim: Dim | None = Dim.DP) -> TensorLike:
         """Broadcast tensor across specified parallel group."""
-        if self._is_distributed:
+        if self.model_device_mesh is not None:
             return helper.operate_tensorlike(helper.broadcast, data, src=src, group=self.get_group(dim))
         else:
             return data
 
     def sync(self) -> None:
         """Synchronize all processes."""
-        if self._is_distributed:
-            helper.synchronize()
+        helper.synchronize()
 
     def barrier(self) -> None:
         """Barrier all processes."""
-        if self._is_distributed:
-            barrier()
+        barrier()
 
     def destroy(self) -> None:
         """Destroy all processes."""
-        if self._is_distributed:
-            destroy_process_group()
+        destroy_process_group()
 
 
 if __name__ == "__main__":
-    """
-    python -m llamafactory.v1.accelerator.interface
-    """
-    print(DistributedInterface())
+    print(DistributedInterface(DistributedStrategy()))
